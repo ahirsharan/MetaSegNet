@@ -53,6 +53,11 @@ class BaseLearner(nn.Module):
             
         for x in Xte:
             net.append(a*torch.matmul(x,w) + b*vec)     
+        
+        net=torch.FloatTensor(net)
+        if(torch.cuda.is_available()):
+            net=net.cuda()
+            
         return net
 
     def parameters(self):
