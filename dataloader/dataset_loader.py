@@ -59,7 +59,7 @@ class DatasetLoader(Dataset):
             transforms.ToTensor()])
 
         self.btransform = transforms.Compose([
-            transforms.Resize(image_size//4 + 10),
+            transforms.Resize(image_size//4 + 2),
             transforms.CenterCrop(image_size//4)])
 
         self.colormap = build_colormap2label()  
