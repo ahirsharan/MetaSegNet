@@ -37,7 +37,8 @@ class BaseLearner(nn.Module):
         if(torch.cuda.is_available()):
             XT=XT.cuda()        
             ytr=ytr.cuda()
-            
+        
+        print(ytr.shape)
         w1 = torch.inverse(torch.matmul(XT,Xtr)+ (l*id))
         w2 = torch.matmul(XT,ytr.float())
         w  = torch.matmul(w1,w2)
