@@ -80,6 +80,8 @@ class MtlLearner(nn.Module):
         _,Xte = self.encoder(im_test)
         print(Xtr.shape)
         Gte = self.base_learner(Xtr, Ytr, Xte, Yte)
+        print(Gte.shape)
+        print(Yte.shape)
         loss =  self.CD(Gte,Yte)
         loss.requires_grad=True
         '''
