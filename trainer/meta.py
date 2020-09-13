@@ -153,7 +153,7 @@ class MetaTrainer(object):
                 out_test=downlabel(out_test,K,'Train')
                 
                 #Reshaping train set ouput
-                Ytr = out_train.reshape(-1,1)
+                Ytr = out_train.reshape(-1)
                 Ytr = onehot(Ytr,K) #One hot encoding for loss
                 
                 Yte = out_test.reshape(out_test.shape[0],-1,1)
@@ -254,7 +254,7 @@ class MetaTrainer(object):
             out_test=downlabel(out_test,K,'Novel')
                 
             #Reshaping train set ouput
-            Ytr = out_train.reshape(-1,1)
+            Ytr = out_train.reshape(-1)
             Ytr = onehot(Ytr,K) #One hot encoding for loss
                 
             Yte = out_test.reshape(out_test.shape[0],-1,1)
