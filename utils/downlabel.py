@@ -8,16 +8,18 @@ def index(arr,x):
             break
     return ind
 
-#Bring the labels from global labels to (0 to K-1) for meta tasks
-def downlabel(labels,K,category):
+#Bring the labels from global labels to (0 to K-1) for meta tasks based on maximum occurence
+
+def downlabel(labels,K):
     visited=[False]*100
-    uniq=[]
+    count=[0]*100
     for x in labels:
         for i in range(x.shape[0]):
             for j in range(x.shape[1]):
-                if(visited[x[i][j]] == False):
-                    visited[x[i][j]]=True
-                    uniq.append(int(x[i][j]))
+                    count[int(x[i][j])]=count[int(x[i][j])]+1
+                    if(visited[int(x[i][j])]==False):
+                        visited[int(x[i][j])]=True
+    '''
     uniqn=[]
     uniqn.append(uniq[0]) #Included Background Class    
     
@@ -29,6 +31,20 @@ def downlabel(labels,K,category):
             uniqn.append(uniq[i])       
     
     uniqn.sort()
+    '''
+    uniqn=[]
+    for i in range(K):
+        maxv=0
+        inx=-1
+        for j in range(100):
+            if(visited[j]==True and count[j]>=maxv):
+                maxv=countj
+                inx=j
+        if(inx!=-1):
+            uniqn.append(inx)
+            visited[inx]=False
+    uniqn.sort()                          
+                                                        
     for x in labels:
         for i in range(x.shape[0]):
             for j in range(x.shape[1]):
