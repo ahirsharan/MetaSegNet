@@ -1,7 +1,7 @@
 import torch
 
 def index(arr,x):
-    in=-1
+    in=(-1)
     for i in range(len(arr)):
         if(arr[i]==x):
             in=i
@@ -33,7 +33,7 @@ def downlabel(labels,K,category):
         for i in range(x.shape[0]):
             for j in range(x.shape[1]):
                 in=index(uniqn,int(x[i][j]))
-                if(in!=-1):
+                if(in!=(-1)):
                     x[i][j]=in
                 else:
                     x[i][j]=0
