@@ -77,6 +77,7 @@ class MtlLearner(nn.Module):
     def forward(self, im_train, Ytr, im_test, Yte):
         Xtr,_ = self.encoder(im_train)
         _,Xte = self.encoder(im_test)
+        print(Xtr.shape)
         Gte = self.base_learner(Xtr, Ytr, Xte, Yte)
         loss =  self.CD(Gte,Yte)
         loss.requires_grad=True
