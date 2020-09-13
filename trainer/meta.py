@@ -292,7 +292,7 @@ class MetaTrainer(object):
                 #print('batch {}: {Average Accuracy:.2f}({Pixel Accuracy:.2f} {IoU :.2f} )'.format(i, ave_acc.item() * 100.0, pixAcc * 100.0,mIoU))
                 
             #Saving Test Image, Ground Truth Image and Predicted Image
-            for j in range(len(K*Q)):
+            for j in range(K*Q):
                 
                 x1 = im_test[j].detach().cpu()
                 y1 = out_test[j].detach().cpu()
