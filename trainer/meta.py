@@ -149,8 +149,8 @@ class MetaTrainer(object):
                 out_train, out_test = labels[:p],labels[p:]
                 
                 #Adjusting labels for each meta task
-                out_train=downlabel(out_train,K)
-                out_test=downlabel(out_test,K)
+                out_train=downlabel(out_train,K,'Train')
+                out_test=downlabel(out_test,K,'Train')
                 
                 #Reshaping train set ouput
                 Ytr = out_train.reshape(-1,1)
@@ -250,8 +250,8 @@ class MetaTrainer(object):
             out_train, out_test = labels[:p], labels[p:]
 
             #Adjusting labels for each meta task
-            out_train=downlabel(out_train,K)
-            out_test=downlabel(out_test,K)
+            out_train=downlabel(out_train,K,'Novel')
+            out_test=downlabel(out_test,K,'Novel')
                 
             #Reshaping train set ouput
             Ytr = out_train.reshape(-1,1)
