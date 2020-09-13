@@ -303,8 +303,8 @@ class MetaTrainer(object):
                 z2 = z1.reshape(m,m)
                 
                 x = transforms.ToPILImage()(x1).convert("RGB")
-                y = decode(y1,K)
-                z = decode(z2,K)
+                y = decode_segmap(y1,K)
+                z = decode_segmap(z2,K)
                 
                 px=self.args.save_image_dir+str(count)+'a.jpg'
                 py=self.args.save_image_dir+str(count)+'b.png'
