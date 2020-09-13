@@ -22,7 +22,7 @@ def downlabel(labels,K,category):
     uniqn.append(uniq[0]) #Included Background Class    
     
     if(category=='Train'):
-        for i in range(1,min(K,len(uniq)):
+        for i in range(1,min(K,len(uniq))):
             uniqn.append(uniq[i])
     else:
         for i in range(len(uniq)-1,max(len(uniq)-K,0),-1):
