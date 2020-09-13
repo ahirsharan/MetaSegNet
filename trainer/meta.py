@@ -17,6 +17,7 @@ from torchvision import transforms
 from utils.decode import decode_segmap
 import math
 from utils.onehot import onehot
+from PIL import Image
 
 class MetaTrainer(object):
     """The class that contains the code for the meta-train phase and meta-eval phase."""
@@ -303,8 +304,8 @@ class MetaTrainer(object):
                 z2 = z1.reshape(m,m)
                 
                 x = transforms.ToPILImage()(x1).convert("RGB")
-                y = decode_segmap(y1,K)
-                z = decode_segmap(z2,K)
+                y = Image.fromarray(decode_segmap(y1,K))
+                z = Image.fromarray(decode_segmap(z2,K))
                 
                 px=self.args.save_image_dir+str(count)+'a.jpg'
                 py=self.args.save_image_dir+str(count)+'b.png'
