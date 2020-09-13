@@ -12,6 +12,7 @@ def downlabel(labels,K):
                     uniq.append(int(x[i][j]))
 
     uniq.sort()
+    print(uniq)
     for x in labels:
         for i in range(x.shape[0]):
             for j in range(x.shape[1]):
