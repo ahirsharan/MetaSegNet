@@ -297,8 +297,8 @@ class MetaTrainer(object):
                 
                 x1 = im_test[j].detach().cpu()
                 y1 = out_test[j].detach().cpu()
-                z1 = Gte[j].detach().cpu()
-                z1 = torch.argmax(z1,axis=1)
+                z1 = GteT[j].detach().cpu()
+                z1 = torch.argmax(z1,axis=0)
                 
                 m=int(math.sqrt(z1.shape[0])) 
                 z2 = z1.reshape(m,m)
