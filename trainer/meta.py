@@ -156,7 +156,7 @@ class MetaTrainer(object):
                 Ytr = out_train.reshape(-1)
                 Ytr = onehot(Ytr,K) #One hot encoding for loss
                 
-                Yte = out_test.reshape(out_test.shape[0],-1,1)
+                Yte = out_test.reshape(out_test.shape[0],-1)
                 
                 # Output logits for model
                 Gte = self.model(im_train,Ytr,im_test, Yte)
@@ -257,7 +257,7 @@ class MetaTrainer(object):
             Ytr = out_train.reshape(-1)
             Ytr = onehot(Ytr,K) #One hot encoding for loss
                 
-            Yte = out_test.reshape(out_test.shape[0],-1,1)
+            Yte = out_test.reshape(out_test.shape[0],-1)
             
             # Output logits for model
             Gte = self.model(im_train,Ytr,im_test, Yte)
