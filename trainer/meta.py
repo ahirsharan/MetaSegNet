@@ -160,12 +160,12 @@ class MetaTrainer(object):
                 
                 # Output logits for model
                 Gte = self.model(im_train,Ytr,im_test, Yte)
-                
+                GteT=torch.transpose(Gte,1,2)
                 # Calculate meta-train loss
-                loss = self.CD(Gte,Yte)
+                loss = self.CD(GteT,Yte)
                 
                 # Calculate meta-train accuracy
-                seg_metrics = eval_metrics(Gte, Yte, K)
+                seg_metrics = eval_metrics(GteT, Yte, K)
                 self._update_seg_metrics(*seg_metrics)
                 pixAcc, mIoU, _ = self._get_seg_metrics(K).values()
                 
@@ -261,9 +261,10 @@ class MetaTrainer(object):
             
             # Output logits for model
             Gte = self.model(im_train,Ytr,im_test, Yte)
-
+            GteT=torch.transpose(Gte,1,2)           
+           
             # Calculate meta-train accuracy
-            seg_metrics = eval_metrics(Gte, Yte, K)
+            seg_metrics = eval_metrics(GteT, Yte, K)
             self._update_seg_metrics(*seg_metrics)     
             pixAcc, mIoU, _ = self._get_seg_metrics(K).values()
             
