@@ -54,7 +54,7 @@ class BaseLearner(nn.Module):
         for x in Xte:
             net.append(a*torch.matmul(x,w) + b*vec)     
         
-        net=torch.FloatTensor(net)
+        net=torch.Tensor(net)
         if(torch.cuda.is_available()):
             net=net.cuda()
             
