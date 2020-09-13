@@ -33,8 +33,10 @@ class BaseLearner(nn.Module):
             id=id.cuda()
          
         XT=torch.transpose(Xtr,0,1)
+        
         if(torch.cuda.is_available()):
             XT=XT.cuda()        
+            ytr=ytr.cuda()
             
         w1 = torch.inverse(torch.matmul(XT,Xtr)+ (l*id))
         w2 = torch.matmul(XT,ytr.float())
