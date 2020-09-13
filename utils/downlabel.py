@@ -38,7 +38,7 @@ def downlabel(labels,K):
         inx=-1
         for j in range(100):
             if(visited[j]==True and count[j]>=maxv):
-                maxv=countj
+                maxv=count[j]
                 inx=j
         if(inx!=-1):
             uniqn.append(inx)
