@@ -87,7 +87,8 @@ class MtlLearner(nn.Module):
         Gte = self.base_learner(Xtr, Ytr, Xte, Yte)
         print(Gte.shape)
         print(Yte.shape)
-        loss =  self.CD(Gte,Yte)
+        GteT=torch.transpose(Gte,1,2)
+        loss =  self.CD(GteT,Yte)
         loss.requires_grad=True
         '''
         print(self.base_learner.parameters())
@@ -102,7 +103,8 @@ class MtlLearner(nn.Module):
      
         for _ in range(1, self.update_step):
             Gte = self.base_learner(Xtr, Ytr, Xte, Yte, fast_weights)
-            loss =  self.CD(Gte,Yte)
+            GteT=torch.transpose(Gte,1,2)
+            loss =  self.CD(GteT,Yte)
             loss.requires_grad=True
             grad = torch.autograd.grad(loss, fast_weights,retain_graph=True,allow_unused=True)
             fast_weights = list(map(lambda p: p[1] - self.update_lr * p[0], zip(grad, fast_weights)))
