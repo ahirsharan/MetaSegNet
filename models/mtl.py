@@ -38,7 +38,7 @@ class BaseLearner(nn.Module):
         if(torch.cuda.is_available()):
             XT=XT.cuda()
             
-        print(ytr.shape)
+        #print(ytr.shape)
         w1 = torch.inverse(torch.matmul(XT,Xtr)+ (l*id))
         w2 = torch.matmul(XT,ytr.float())
         w  = torch.matmul(w1,w2)
@@ -83,10 +83,10 @@ class MtlLearner(nn.Module):
     def forward(self, im_train, Ytr, im_test, Yte):
         Xtr,_ = self.encoder(im_train)
         _,Xte = self.encoder(im_test)
-        print(Xtr.shape)
+        #print(Xtr.shape)
         Gte = self.base_learner(Xtr, Ytr, Xte, Yte)
-        print(Gte.shape)
-        print(Yte.shape)
+        #print(Gte.shape)
+        #print(Yte.shape)
         GteT=torch.transpose(Gte,1,2)
         loss =  self.CD(GteT,Yte)
 
@@ -96,9 +96,9 @@ class MtlLearner(nn.Module):
             print(par.data)
             print(par.requires_grad)
         '''
-        print(loss)
+        #print(loss)
         grad = torch.autograd.grad(loss, self.base_learner.parameters())
-        print(grad)
+        #print(grad)
         fast_weights = list(map(lambda p: p[1] - self.update_lr * p[0], zip(grad, self.base_learner.parameters())))
      
         for _ in range(1, self.update_step):
