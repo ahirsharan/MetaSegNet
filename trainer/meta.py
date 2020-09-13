@@ -299,7 +299,7 @@ class MetaTrainer(object):
                 z1 = Gte[j].detach().cpu()
                 z1 = torch.argmax(z1,axis=1)
                 
-                m=int(sqrt(z1.shape[0])) 
+                m=int(math.sqrt(z1.shape[0])) 
                 z2 = z1.reshape(m,m)
                 
                 x = transforms.ToPILImage()(x1).convert("RGB")
