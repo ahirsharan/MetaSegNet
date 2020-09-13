@@ -154,16 +154,18 @@ class MetaTrainer(object):
                 
                 #Reshaping train set ouput
                 Ytr = out_train.reshape(-1,1)
+                Ytr = onehot(Ytr,K) #One hot encoding for loss
+                
                 Yte = out_test.reshape(out_test.shape[0],-1,1)
                 
                 # Output logits for model
                 Gte = self.model(im_train,Ytr,im_test, Yte)
                 
                 # Calculate meta-train loss
-                loss = self.CD(onehot(Gte,K),Yte)
+                loss = self.CD(Gte,Yte)
                 
                 # Calculate meta-train accuracy
-                seg_metrics = eval_metrics(onehot(Gte,K), Yte, K)
+                seg_metrics = eval_metrics(Gte, Yte, K)
                 self._update_seg_metrics(*seg_metrics)
                 pixAcc, mIoU, _ = self._get_seg_metrics(K).values()
                 
@@ -253,13 +255,15 @@ class MetaTrainer(object):
                 
             #Reshaping train set ouput
             Ytr = out_train.reshape(-1,1)
+            Ytr = onehot(Ytr,K) #One hot encoding for loss
+                
             Yte = out_test.reshape(out_test.shape[0],-1,1)
             
             # Output logits for model
             Gte = self.model(im_train,Ytr,im_test, Yte)
 
             # Calculate meta-train accuracy
-            seg_metrics = eval_metrics(onehot(Gte,K), Yte, K)
+            seg_metrics = eval_metrics(Gte, Yte, K)
             self._update_seg_metrics(*seg_metrics)     
             pixAcc, mIoU, _ = self._get_seg_metrics(K).values()
             
@@ -273,7 +277,7 @@ class MetaTrainer(object):
                 
                 x1 = im_test[j].detach().cpu()
                 y1 = out_test[j].detach().cpu()
-                z1 = Gte[j].detach().cpu() 
+                z1 = Gte[j].detach().cpu() #Do Changes
                 
                 m=int(sqrt(z1.shape[0])) 
                 z2 = z1.reshape(m,m)
