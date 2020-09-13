@@ -156,8 +156,8 @@ class MetaTrainer(object):
                     out_test=out_test.cuda()
                     
                 #Adjusting labels for each meta task
-                out_train=downlabel(out_train,K,'Train')
-                out_test=downlabel(out_test,K,'Train')
+                out_train=downlabel(out_train,K)
+                out_test=downlabel(out_test,K)
 
                 if(torch.cuda.is_available()):
                     im_train=im_train.cuda()
@@ -266,8 +266,8 @@ class MetaTrainer(object):
             out_train, out_test = labels[:p], labels[p:]
 
             #Adjusting labels for each meta task
-            out_train=downlabel(out_train,K,'Novel')
-            out_test=downlabel(out_test,K,'Novel')
+            out_train=downlabel(out_train,K)
+            out_test=downlabel(out_test,K)
                 
             #Reshaping train set ouput
             Ytr = out_train.reshape(-1)
