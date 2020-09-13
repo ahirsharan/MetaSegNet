@@ -38,7 +38,7 @@ class BaseLearner(nn.Module):
         net=[]
         
         dim=Yte.shape[1]
-        vec=torch.ones((dim,1))
+        vec=torch.ones((dim,self.args.way+1))
         
         if(torch.cuda.is_available()):
             vec=vec.cuda()
@@ -72,7 +72,7 @@ class MtlLearner(nn.Module):
         Xtr,_ = self.encoder(im_train)
         _,Xte = self.encoder(im_test)
         Gte = self.base_learner(Xtr, Ytr, Xte, Yte)
-        loss =  self.CD(onehot(Gte,self.args.way+1),Yte)
+        loss =  self.CD(Gte,Yte)
         loss.requires_grad=True
         '''
         print(self.base_learner.parameters())
@@ -87,7 +87,7 @@ class MtlLearner(nn.Module):
      
         for _ in range(1, self.update_step):
             Gte = self.base_learner(Xtr, Ytr, Xte, Yte, fast_weights)
-            loss =  self.CD(onehot(Gte,self.args.way+1),Yte)
+            loss =  self.CD(Gte,Yte)
             loss.requires_grad=True
             grad = torch.autograd.grad(loss, fast_weights,retain_graph=True,allow_unused=True)
             fast_weights = list(map(lambda p: p[1] - self.update_lr * p[0], zip(grad, fast_weights)))
