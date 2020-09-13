@@ -28,7 +28,16 @@ class BaseLearner(nn.Module):
         
         # weight of ridgle classifier calculated using train data
         id=torch.eye(self.args.way+1)
-        XT=torch.transpose(Xtr,0,1)        
+        if(torch.cuda.is_available()):
+            l=l.cuda()
+            a=a.cuda()
+            b=b.cuda()
+            id=id.cuda()
+            
+        XT=torch.transpose(Xtr,0,1)  
+        if(torch.cuda.is_available()):
+            XT=XT.cuda()
+            
         print(ytr.shape)
         w1 = torch.inverse(torch.matmul(XT,Xtr)+ (l*id))
         w2 = torch.matmul(XT,ytr.float())
