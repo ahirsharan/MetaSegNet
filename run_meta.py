@@ -22,4 +22,4 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     os.system(the_command + ' --phase=train')
     os.system(the_command + ' --phase=test')
 
-run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20)
+run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=1000)
