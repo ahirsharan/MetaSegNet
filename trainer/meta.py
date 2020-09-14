@@ -205,12 +205,13 @@ class MetaTrainer(object):
 
             # Update best saved model
             if train_iou_averager > trlog['max_iou']:
+                print("New Best!")
                 trlog['max_iou'] = train_iou_averager
                 trlog['max_iou_epoch'] = epoch
                 self.save_model('max_iou')
                 
             # Save model every 10 epochs
-            if epoch % 2 == 0:
+            if epoch % 5 == 0:
                 self.save_model('epoch'+str(epoch))
 
             # Update the logs
