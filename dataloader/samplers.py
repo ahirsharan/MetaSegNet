@@ -1,6 +1,7 @@
 """ Sampler for dataloader. """
 import torch
 import numpy as np
+import random
 
 # Customize such as total way number of distinct classes to segment in a meta task
 
@@ -26,7 +27,7 @@ class CategoriesSampler():
     
     def __iter__(self):
         for i_batch in range(self.n_batch):
-            classes = torch.randperm(len(self.m_ind))[:self.K]
+            classes = torch.randperm(len(self.m_ind))[:(self.K-1)]
             lr=[]
             dr=[]
             for c in classes:
@@ -41,7 +42,8 @@ class CategoriesSampler():
                     dr.append(m[i])
             
             # redundancy for background
-            c=classes[0]
+            h=random.randint(0,self.K-1)
+            c=classes[h]
             l = self.m_ind[c]
             pos = torch.randperm(len(l))[:(self.N +self.Q)]
             m=l[pos]
