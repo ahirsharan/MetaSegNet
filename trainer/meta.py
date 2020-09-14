@@ -34,7 +34,7 @@ class MetaTrainer(object):
         if not osp.exists(meta_base_dir):
             os.mkdir(meta_base_dir)
         save_path1 = '_'.join([args.dataset, args.model_type, 'MTL'])
-        save_path2 = 'shot' + str(args.shot) + '_way' + str(args.way) + '_query' + str(args.train_query) + \
+        save_path2 = 'shot' + str(args.train_query) + '_way' + str(args.way) + '_query' + str(args.train_query) + \
             '_step' + str(args.step_size) + '_gamma' + str(args.gamma) + '_lr' + str(args.meta_lr) + \
             '_batch' + str(args.num_batch) + '_maxepoch' + str(args.max_epoch) + \
             '_baselr' + str(args.base_lr) + '_updatestep' + str(args.update_step) + \
