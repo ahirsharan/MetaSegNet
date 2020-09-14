@@ -14,7 +14,7 @@ if __name__ == '__main__':
     parser.add_argument('--phase', type=str, default='train', choices=['train','test']) # Phase
     parser.add_argument('--seed', type=int, default=0) # Manual seed for PyTorch, "0" means using random seed
     parser.add_argument('--gpu', default='1') # GPU id
-    parser.add_argument('--dataset_dir', type=str, default='../Datasets/Pascal5/') # Dataset folder
+    parser.add_argument('--dataset_dir', type=str, default='../Datasets/Pascal5Aug/') # Dataset folder
 
     # Parameters for meta-train phase    
     parser.add_argument('--max_epoch', type=int, default=40) # Epoch number for meta-train phase
