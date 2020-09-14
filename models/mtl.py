@@ -43,7 +43,8 @@ class BaseLearner(nn.Module):
         w2 = torch.matmul(XT,ytr.float())
         w  = torch.matmul(w1,w2)
         net=[]
-        
+
+        print("w " + w.shape) 
         dim=Yte.shape[1]
         vec=torch.ones((dim,self.args.way+1))
         
@@ -82,12 +83,15 @@ class MtlLearner(nn.Module):
         
     def forward(self, im_train, Ytr, im_test, Yte):
         Xtr,_ = self.encoder(im_train)
-        _,Xte = self.encoder(im_test)
-        #print(Xtr.shape)
+        _,Xte = self.encoder(im_test)       
+        print("Xtr " + Xtr.shape)
+        print("Xte " + Xte.shape)        
+        print("Ytr " + Ytr.shape)
+        print("Yte " + Yte.shape)
         Gte = self.base_learner(Xtr, Ytr, Xte, Yte)
-        #print(Gte.shape)
-        #print(Yte.shape)
+        print("Gte " + Gte.shape) 
         GteT=torch.transpose(Gte,1,2)
+        print("GteT " + GteT.shape) 
         loss =  self.CD(GteT,Yte)
 
         '''
