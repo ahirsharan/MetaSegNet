@@ -21,7 +21,6 @@ if __name__ == '__main__':
     parser.add_argument('--num_batch', type=int, default=1000) # The number for different tasks used for meta-train
     parser.add_argument('--way', type=int, default=3) # Way number, how many classes in a task
     parser.add_argument('--train_query', type=int, default=3) # (Shot) The number of meta train samples for each class in a task
-    parser.add_argument('--shot', type=int, default=3) # (Shot) The number of meta train samples for each class in a task
     parser.add_argument('--test_query', type=int, default=2) # The number of meta test samples for each class in a task
     parser.add_argument('--meta_lr', type=float, default=0.001) # Learning rate for feature embedding
     parser.add_argument('--update_step', type=int, default=50) # The number of updates for the inner loop
