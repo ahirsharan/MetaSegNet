@@ -94,7 +94,7 @@ class resnet9(nn.Module):
 
         #Adjusting Dimensions
         #last dim =1024*out_channels
-        self.resblockadd=nn.Conv2d(1024, 1024*self.out_channels, kernel_size=1, stride=1, padding=0, bias=True)
+        self.blockadd=nn.Conv2d(1024, 1024*self.out_channels, kernel_size=1, stride=1, padding=0, bias=True)
         self.bn3=nn.BatchNorm2d(num_features=1024*self.out_channels)
         self.relu3=nn.ReLU(inplace=True)  
         
