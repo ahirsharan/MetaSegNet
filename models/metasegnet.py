@@ -124,6 +124,6 @@ class resnet9(nn.Module):
         print("Output: ")
         print(out.shape)
         #Reshape to segmentation map
-        out1=out.reshape(out.shape[0],-1,out.shape[3])
+        out1=out.reshape(out.shape[0],-1,self.out_channels)
         out=out.reshape((-1,self.out_channels))
         return out,out1
