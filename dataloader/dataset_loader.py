@@ -52,7 +52,7 @@ class DatasetLoader(Dataset):
         self.labeln = labeln
         
         # Transformation for RGB
-        image_size = 256
+        image_size = 1920
         self.transform = transforms.Compose([
             transforms.Resize(image_size + 10),
             transforms.CenterCrop(image_size),
