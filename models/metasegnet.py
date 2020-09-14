@@ -91,6 +91,11 @@ class resnet9(nn.Module):
         
         self.bn2=nn.BatchNorm2d(num_features=1024)
         self.relu2=nn.ReLU(inplace=True)
+
+        #Adjusting Dimensions
+        self.blockadd=nn.Conv2d(1024, 960, kernel_size=1, stride=1, padding=0, bias=True)
+        self.bn3=nn.BatchNorm2d(num_features=960)
+        self.relu3=nn.ReLU(inplace=True)  
         
     def forward(self,x):
         
@@ -121,6 +126,11 @@ class resnet9(nn.Module):
         out=self.bn2(out)
         out=self.relu2(out)
         
+        #For adjusting dimensions
+        out=self.blockadd(out)
+        out=self.bn3(out)
+        out=self.relu3(out)
+
         print("Output: ")
         print(out.shape)
         #Reshape to segmentation map
