@@ -144,8 +144,8 @@ class MetaTrainer(object):
                     data = batch[0]
                     labels = batch[1]
                 
-                print(data.shape)
-                print(labels.shape)
+                #print(data.shape)
+                #print(labels.shape)
                 p = K*N
                 im_train, im_test = data[:p], data[p:]
                 out_train, out_test = labels[:p],labels[p:]
