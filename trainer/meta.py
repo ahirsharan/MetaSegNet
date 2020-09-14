@@ -149,6 +149,11 @@ class MetaTrainer(object):
                 im_train, im_test = data[:p], data[p:]
                 out_train, out_test = labels[:p],labels[p:]
                 
+                print(im_train.shape)
+                print(im_test.shape)
+                print(out_train.shape)
+                print(out_test.shape)
+                
                 if(torch.cuda.is_available()):
                     im_train=im_train.cuda()
                     im_test=im_test.cuda()
