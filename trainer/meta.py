@@ -150,11 +150,12 @@ class MetaTrainer(object):
                 im_train, im_test = data[:p], data[p:]
                 out_train, out_test = labels[:p],labels[p:]
                 
+                '''
                 print(im_train.shape)
                 print(im_test.shape)
                 print(out_train.shape)
                 print(out_test.shape)
-                
+                '''
                 if(torch.cuda.is_available()):
                     im_train=im_train.cuda()
                     im_test=im_test.cuda()
@@ -321,7 +322,8 @@ class MetaTrainer(object):
                 y.save(py)
                 z.save(pz)
                 count=count+1
-            
+                
+            print("Images Saved!")
         # Calculate the confidence interval, update the logs
         #print('Val Best Epoch {}, Acc {:.4f}, Test Acc {:.4f}'.format(trlog['max_acc_epoch'], trlog['max_acc']*100.0, ave_acc.item()*100.0))
         
