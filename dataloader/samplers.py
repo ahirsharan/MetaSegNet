@@ -42,7 +42,7 @@ class CategoriesSampler():
                     dr.append(m[i])
             
             # redundancy for background
-            h=random.randint(0,self.K-1)
+            h=random.randint(0,self.K-2)
             c=classes[h]
             l = self.m_ind[c]
             pos = torch.randperm(len(l))[:(self.N +self.Q)]
