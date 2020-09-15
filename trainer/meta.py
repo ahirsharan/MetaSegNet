@@ -148,6 +148,9 @@ class MetaTrainer(object):
                 #print(labels.shape)
                 p = K*N
                 im_train, im_test = data[:p], data[p:]
+                
+                #Adjusting labels for each meta task
+                labels=downlabel(labels,K) 
                 out_train, out_test = labels[:p],labels[p:]
                 
                 '''
@@ -162,10 +165,6 @@ class MetaTrainer(object):
                     out_train=out_train.cuda()
                     out_test=out_test.cuda()
                     
-                #Adjusting labels for each meta task
-                out_train=downlabel(out_train,K)
-                out_test=downlabel(out_test,K)
-
                 if(torch.cuda.is_available()):
                     im_train=im_train.cuda()
                     im_test=im_test.cuda()
@@ -271,11 +270,10 @@ class MetaTrainer(object):
 
             p = K*N
             im_train, im_test = data[:p], data[p:]
+            
+            #Adjusting labels for each meta task  
+            labels=downlabel(labels,K)
             out_train, out_test = labels[:p], labels[p:]
-
-            #Adjusting labels for each meta task
-            out_train=downlabel(out_train,K)
-            out_test=downlabel(out_test,K)
                 
             #Reshaping train set ouput
             Ytr = out_train.reshape(-1)
