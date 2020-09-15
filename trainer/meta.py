@@ -211,7 +211,7 @@ class MetaTrainer(object):
                 self.save_model('max_iou')
                 
             # Save model every 5 epochs
-            if epoch % 5 == 0:
+            if epoch % 2 == 0:
                 self.save_model('epoch'+str(epoch))
 
             # Update the logs
