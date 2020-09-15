@@ -230,7 +230,8 @@ class MetaTrainer(object):
 
             if epoch % 1 == 0:
                 print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
-
+                print('Epoch:{}, Average CE Loss: {}, Average mean IoU: {}'.format(epoch, train_loss_averager, train_iou_averager))
+            
         writer.close()
 
     def eval(self):
