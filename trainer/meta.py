@@ -164,13 +164,7 @@ class MetaTrainer(object):
                     im_test=im_test.cuda()
                     out_train=out_train.cuda()
                     out_test=out_test.cuda()
-                    
-                if(torch.cuda.is_available()):
-                    im_train=im_train.cuda()
-                    im_test=im_test.cuda()
-                    out_train=out_train.cuda()
-                    out_test=out_test.cuda()
-                    
+                        
                 #Reshaping train set ouput
                 Ytr = out_train.reshape(-1)
                 Ytr = onehot(Ytr,K) #One hot encoding for loss
@@ -275,7 +269,13 @@ class MetaTrainer(object):
             #Adjusting labels for each meta task  
             labels=downlabel(labels,K)
             out_train, out_test = labels[:p], labels[p:]
-                
+            
+            if(torch.cuda.is_available()):
+                im_train=im_train.cuda()
+                im_test=im_test.cuda()
+                out_train=out_train.cuda()
+                out_test=out_test.cuda()
+            
             #Reshaping train set ouput
             Ytr = out_train.reshape(-1)
             Ytr = onehot(Ytr,K) #One hot encoding for loss
