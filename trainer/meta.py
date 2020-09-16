@@ -202,7 +202,12 @@ class MetaTrainer(object):
             train_loss_averager = train_loss_averager.item()
             train_acc_averager = train_acc_averager.item()
             train_iou_averager = train_iou_averager.item()
-
+            
+            #Adding to Tensorboard
+            writer.add_scalar('data/train_loss (Meta)', float(train_loss_averager), epoch)
+            writer.add_scalar('data/train_acc (Meta)', float(train_acc_averager)*100.0, epoch)  
+            writer.add_scalar('data/train_iou (Meta)', float(train_iou_averager), epoch)
+                       
             # Update best saved model
             if train_iou_averager > trlog['max_iou']:
                 print("New Best!")
