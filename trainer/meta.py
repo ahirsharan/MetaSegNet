@@ -23,11 +23,11 @@ class MetaTrainer(object):
     """The class that contains the code for the meta-train phase and meta-eval phase."""
     def __init__(self, args):
         # Set the folder to save the records and checkpoints
-        save_image_dir='../results6/'
+        save_image_dir='../results7/'
         if not osp.exists(save_image_dir):
             os.mkdir(save_image_dir)        
         
-        log_base_dir = '../logs6/'
+        log_base_dir = '../logs7/'
         if not osp.exists(log_base_dir):
             os.mkdir(log_base_dir)
         meta_base_dir = osp.join(log_base_dir, 'meta')
