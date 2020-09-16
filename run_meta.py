@@ -9,7 +9,7 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     gpu = 1
     
     dataset='PASCAL'
-    dataset_dir='../Datasets/PASCAL5Aug/'
+    dataset_dir='../Datasets/Pascal5Aug/'
     #num_batch is episodes   
     the_command = 'python3 main.py' \
         + ' --dataset=' +str(dataset) \
