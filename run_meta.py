@@ -9,6 +9,7 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     gpu = 1
     #num_batch is episodes   
     the_command = 'python3 main.py' \
+        + ' --dataset=' +str(dataset) \
         + ' --max_epoch=' + str(max_epoch) \
         + ' --num_batch=' + str(num_batch) \
         + ' --train_query=' + str(N) \
