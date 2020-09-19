@@ -6,7 +6,7 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     max_epoch = 40
     step_size = 20
     K = 1            #Background class not included. Adjust accordingly further.
-    gpu = 1
+    gpu = 2
     
     dataset='PASCAL'
     dataset_dir='../Datasets/Pascal5Aug/'
