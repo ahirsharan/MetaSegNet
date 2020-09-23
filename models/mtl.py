@@ -77,7 +77,7 @@ class MtlLearner(nn.Module):
     def __init__(self, args):
         super().__init__()
         self.args = args
-        self.update_lr = args.base_lr
+        self.update_lr = args.meta_lr
         self.update_step = args.update_step
         self.base_learner = BaseLearner(args)
         num_classes=self.args.way+1
