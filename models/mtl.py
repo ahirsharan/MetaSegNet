@@ -129,5 +129,5 @@ class MtlLearner(nn.Module):
             fast_weights = list(map(lambda p: p[1] - self.update_lr * p[0], zip(grad, fast_weights)))
         
         Gte = self.base_learner(Xtr, Ytr, Xte, Yte, fast_weights) 
-        self.base_learner.reinit()
+        #self.base_learner.reinit()
         return Gte
