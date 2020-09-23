@@ -85,6 +85,10 @@ class MtlLearner(nn.Module):
         self.CD=CE_DiceLoss()
         
     def forward(self, im_train, Ytr, im_test, Yte):
+        
+        #Re-Setting lambda,alpha and beta for each episode
+        self.base_learner.reinit()
+        
         Xtr,_ = self.encoder(im_train)
         _,Xte = self.encoder(im_test)
         '''
