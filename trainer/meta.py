@@ -134,7 +134,7 @@ class MetaTrainer(object):
 
             # Using tqdm to read samples from train loader
             tqdm_gen = tqdm.tqdm(self.train_loader)
-            self._reset_metrics()
+            
             for i, batch in enumerate(tqdm_gen, 1):
                 # Update global count number 
                 global_count = global_count + 1
@@ -180,12 +180,13 @@ class MetaTrainer(object):
                 # Calculate meta-train loss
                 loss = self.CD(GteT,Yte)
                 
+                self._reset_metrics()
                 # Calculate meta-train accuracy
                 seg_metrics = eval_metrics(GteT, Yte, K)
                 self._update_seg_metrics(*seg_metrics)
                 pixAcc, mIoU, _ = self._get_seg_metrics(K).values()
                 
-                # Print loss and accuracy till this step (running averages)
+                # Print loss and accuracy for this step 
                 tqdm_gen.set_description('Epoch {}, Loss={:.4f} Acc={:.4f} IoU={:.4f}'.format(epoch, loss.item(), pixAcc*100.0,mIoU))
 
                 # Add loss and accuracy for the averagers
