@@ -3,13 +3,13 @@ import os
 
 # N shot and K way
 def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
-    max_epoch = 40
+    max_epoch = 80
     step_size = 20
     K = 2            #Background class not included. Adjust accordingly further.
     gpu = 1
     
-    dataset='PASCAL'
-    dataset_dir='../Datasets/Pascal5Aug/'
+    dataset='COCO'
+    dataset_dir='../Datasets/COCOAug/'
     #num_batch is episodes   
     the_command = 'python3 main.py' \
         + ' --dataset=' +str(dataset) \
@@ -27,4 +27,4 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     os.system(the_command + ' --phase=train')
     os.system(the_command + ' --phase=test')
 
-run_exp(num_batch=1000, N=5, Q=2, lr=0.001, update_step=100)
+run_exp(num_batch=500, N=5, Q=2, lr=0.001, update_step=100)
