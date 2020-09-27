@@ -216,7 +216,7 @@ class MetaTrainer(object):
                 trlog['max_iou_epoch'] = epoch
                 self.save_model('max_iou')
                 
-            # Save model every 5 epochs
+            # Save model every 2 epochs
             if epoch % 2 == 0:
                 self.save_model('epoch'+str(epoch))
 
@@ -230,7 +230,7 @@ class MetaTrainer(object):
 
             if epoch % 1 == 0:
                 print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
-                print('Epoch:{}, Average CE Loss: {:.4f}, Average mean IoU: {:.4f}'.format(epoch, train_loss_averager, train_iou_averager))
+                print('Epoch:{}, Average Loss: {:.4f}, Average mIoU: {:.4f}'.format(epoch, train_loss_averager, train_iou_averager))
             
         writer.close()
 
