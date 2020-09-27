@@ -185,7 +185,7 @@ class MetaTrainer(object):
                 self._update_seg_metrics(*seg_metrics)
                 pixAcc, mIoU, _ = self._get_seg_metrics(K).values()
                 
-                # Print loss and accuracy for this step
+                # Print loss and accuracy till this step (running averages)
                 tqdm_gen.set_description('Epoch {}, Loss={:.4f} Acc={:.4f} IoU={:.4f}'.format(epoch, loss.item(), pixAcc*100.0,mIoU))
 
                 # Add loss and accuracy for the averagers
