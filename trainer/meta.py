@@ -23,11 +23,11 @@ class MetaTrainer(object):
     """The class that contains the code for the meta-train phase and meta-eval phase."""
     def __init__(self, args):
         # Set the folder to save the records and checkpoints
-        save_image_dir='../results1/'
+        save_image_dir='../results6/'
         if not osp.exists(save_image_dir):
             os.mkdir(save_image_dir)        
         
-        log_base_dir = '../logs1/'
+        log_base_dir = '../logs6/'
         if not osp.exists(log_base_dir):
             os.mkdir(log_base_dir)
         meta_base_dir = osp.join(log_base_dir, 'meta')
@@ -190,6 +190,7 @@ class MetaTrainer(object):
                 tqdm_gen.set_description('Epoch {}, Loss={:.4f} Acc={:.4f} IoU={:.4f}'.format(epoch, loss.item(), pixAcc*100.0,mIoU))
 
                 # Add loss and accuracy for the averagers
+                # Calculate the running averages
                 train_loss_averager.add(loss.item())
                 train_acc_averager.add(pixAcc)
                 train_iou_averager.add(mIoU)
