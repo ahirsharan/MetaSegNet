@@ -261,7 +261,7 @@ class MetaTrainer(object):
         N=self.args.train_query
         Q=self.args.test_query        
         
-        self._reset_metrics()
+        
         count=1
         for i, batch in enumerate(self.loader, 1):
             if torch.cuda.is_available():
@@ -297,15 +297,13 @@ class MetaTrainer(object):
             GteT=torch.transpose(Gte,1,2)           
            
             # Calculate meta-train accuracy
+            self._reset_metrics()
             seg_metrics = eval_metrics(GteT, Yte, K)
             self._update_seg_metrics(*seg_metrics)     
             pixAcc, mIoU, _ = self._get_seg_metrics(K).values()
             
-            ave_acc.add(pixAcc)
-            #test_acc_record[i-1] = acc
-            #if i % 100 == 0:
-                #print('batch {}: {Average Accuracy:.2f}({Pixel Accuracy:.2f} {IoU :.2f} )'.format(i, ave_acc.item() * 100.0, pixAcc * 100.0,mIoU))
-                
+            ave_acc.add(mIoU)
+           
             #Saving Test Image, Ground Truth Image and Predicted Image
             for j in range(K*Q):
                 
@@ -328,7 +326,9 @@ class MetaTrainer(object):
                 y.save(py)
                 z.save(pz)
                 count=count+1
-                
+        
+        mIoU_val=ave_acc.item()
+        print('Average mIoU: {:.4f}'.format(mIoU_val))
         print("Images Saved!")
         # Calculate the confidence interval, update the logs
         #print('Val Best Epoch {}, Acc {:.4f}, Test Acc {:.4f}'.format(trlog['max_acc_epoch'], trlog['max_acc']*100.0, ave_acc.item()*100.0))
