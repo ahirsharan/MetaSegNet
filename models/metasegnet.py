@@ -78,7 +78,13 @@ class resnet9(nn.Module):
         self.resblock2=BasicBlock(inplanes=64, planes=128)
         self.pool1=nn.MaxPool2d(kernel_size=3,stride=1,padding=1)
         
-        self.resblock3=BasicBlock(inplanes=128, planes=256,dilations=[1,2,4])
+        dilations1=[1,1,1]
+        if(out_channels-1==1): #1 way
+            dilations1=[1,1,1]
+        else
+            dilations1=[1,2,4]
+        
+        self.resblock3=BasicBlock(inplanes=128, planes=256,dilations=dilations1)
     
         #Local Feature
         
@@ -87,7 +93,13 @@ class resnet9(nn.Module):
         else:
             outch=1024      #MetaSegConv and MetaSegNet-NG
         
-        self.resblock4=BasicBlock(inplanes=256,planes=outch,dilations=[8,16,32])
+        dilations2=[1,1,1]
+        if(out_channels-1==1): #1 way
+            dilations2=[2,4,8]
+        else
+            dilations2=[8,16,32]            
+            
+        self.resblock4=BasicBlock(inplanes=256,planes=outch,dilations=dilations2)
         
         #Global Context        
         self.pool2=nn.MaxPool2d(kernel_size=3,stride=1,padding=1)
