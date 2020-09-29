@@ -10,6 +10,15 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     
     dataset='COCO'
     dataset_dir='../Datasets/COCOAug/'
+    
+    '''
+    dataset='FSS1000'
+    dataset_dir='../Datasets/FSS1000Aug/'
+
+    dataset='PASCAL'
+    dataset_dir='../Datasets/Pascal5Aug/'
+    ''''
+    
     #num_batch is episodes   
     the_command = 'python3 main.py' \
         + ' --dataset=' +str(dataset) \
