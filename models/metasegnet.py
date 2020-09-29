@@ -88,6 +88,7 @@ class resnet9(nn.Module):
     
         #Local Feature
         
+        outch=512
         if(mtype == 'Net'): #MetaSegNet
             outch=512
         else:
