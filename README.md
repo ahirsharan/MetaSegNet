@@ -48,7 +48,7 @@ The code structure is based on [MTL-template](https://github.com/yaoyao-liu/meta
     ├── Pascal5Aug
     ├── FSS1000   
     |  
-├── SegNet
+├── MetaSegNet
     |
     ├── FewShotPreprocessing.py     # utility to organise the Few-shot data into train and novel
     ├── cocogen.py                  # utility to organise the Few-shot data into train and novel after generating masks
