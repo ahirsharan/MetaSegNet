@@ -62,9 +62,10 @@ class BasicBlock(nn.Module):
         return out
     
 class resnet9(nn.Module):
-    def __init__(self, num_channels,out_channels):
+    def __init__(self, num_channels,out_channels,mtype):
         super(resnet9, self).__init__()    
         
+        sel.mtype=mtype
         self.num_channels=num_channels
         self.out_channels=out_channels
         self.Conv=nn.Conv2d(in_channels=num_channels, out_channels=64, kernel_size=7, stride=2, padding=3, bias=True)
@@ -80,7 +81,13 @@ class resnet9(nn.Module):
         self.resblock3=BasicBlock(inplanes=128, planes=256,dilations=[1,2,4])
     
         #Local Feature
-        self.resblock4=BasicBlock(inplanes=256,planes=512,dilations=[8,16,32])
+        
+        if(mtype == 'Net'): #MetaSegNet
+            outch=512
+        else:
+            outch=1024      #MetaSegConv and MetaSegNet-NG
+        
+        self.resblock4=BasicBlock(inplanes=256,planes=outch,dilations=[8,16,32])
         
         #Global Context        
         self.pool2=nn.MaxPool2d(kernel_size=3,stride=1,padding=1)
@@ -115,15 +122,21 @@ class resnet9(nn.Module):
         out1=out
         out1=self.resblock4(out1)
         
-        out2=out
-        out2=self.pool2(out2)
-        out2=self.pool3(out2)
-        out2=self.resblock5(out2)
-        out2=self.pool4(out2)
-        out2=self.pool5(out2)
+        if(mtype=='Net'):
+            out2=out
+            out2=self.pool2(out2)
+            out2=self.pool3(out2)
+            out2=self.resblock5(out2)
+            out2=self.pool4(out2)
+            out2=self.pool5(out2)
         
-        #Concatenate
-        out=torch.cat((out1,out2),1)
+            #Concatenate
+            out=torch.cat((out1,out2),1)
+        else:
+            #No Global Branch in MetaSegnet-NG and MetaSegConv
+            out=out1
+        
+        
         out=self.bn2(out)
         out=self.relu2(out)
         
