@@ -1,6 +1,6 @@
 import numpy as np
 
-#RGB Values
+#RGB Values (modified for COCO and FSS)
 VOC_COLORMAP = [[0, 0, 0], [128, 0, 0], [0, 128, 0], [128, 128, 0],
                 [0, 0, 128], [128, 0, 128], [0, 128, 128], [128, 128, 128],
                 [64, 0, 0], [192, 0, 0], [64, 128, 0], 
