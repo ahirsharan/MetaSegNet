@@ -80,10 +80,6 @@ The code structure is based on [MTL-template](https://github.com/yaoyao-liu/meta
 ```
 ## Running Experiments
 
-Run pretrain phase:
-```bash
-python run_pre.py
-```
 Run meta-train and meta-test phase:
 ```bash
 python run_meta.py
