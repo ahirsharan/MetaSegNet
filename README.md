@@ -107,9 +107,3 @@ Hyperparameters and options in `main.py`.
 - `gamma` Gamma for the meta-train learning rate decay
 - `init_weights` The pretained weights for meta-train phase
 - `meta_label` Additional label for meta-train
-- `pre_max_epoch` Epoch number for pre-train psase
-- `pre_batch_size` Batch size for pre-train phase
-- `pre_lr` Learning rate for pre-train pahse
-- `pre_gamma` Gamma for the preteain learning rate decay
-- `pre_step_size` The number of epochs to reduce the pre-train learning rate
-- `pre_custom_weight_decay` Weight decay for the optimizer during pre-train
