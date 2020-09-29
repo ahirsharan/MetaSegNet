@@ -79,9 +79,10 @@ class MtlLearner(nn.Module):
         self.args = args
         self.update_lr = args.base_lr
         self.update_step = args.update_step
+        self.mtype=args.mtype
         self.base_learner = BaseLearner(args)
         num_classes=self.args.way+1
-        self.encoder = resnet9(3,num_classes)  
+        self.encoder = resnet9(3,num_classes,mtype)  
         self.CD=CE_DiceLoss()
         
     def forward(self, im_train, Ytr, im_test, Yte):
