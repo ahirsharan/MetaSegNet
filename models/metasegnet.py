@@ -65,7 +65,7 @@ class resnet9(nn.Module):
     def __init__(self, num_channels,out_channels,mtype):
         super(resnet9, self).__init__()    
         
-        sel.mtype=mtype
+        self.mtype=mtype
         self.num_channels=num_channels
         self.out_channels=out_channels
         self.Conv=nn.Conv2d(in_channels=num_channels, out_channels=64, kernel_size=7, stride=2, padding=3, bias=True)
@@ -79,7 +79,7 @@ class resnet9(nn.Module):
         self.pool1=nn.MaxPool2d(kernel_size=3,stride=1,padding=1)
         
         dilations1=[1,1,1]
-        if(out_channels-1==1): #1 way
+        if(self.out_channels-1==1): #1 way
             dilations1=[1,1,1]
         else:
             dilations1=[1,2,4]
@@ -89,13 +89,13 @@ class resnet9(nn.Module):
         #Local Feature
         
         outch=512
-        if(mtype == 'Net'): #MetaSegNet
+        if(self.mtype == 'Net'): #MetaSegNet
             outch=512
         else:
             outch=1024      #MetaSegConv and MetaSegNet-NG
         
         dilations2=[1,1,1]
-        if(out_channels-1==1): #1 way
+        if(self.out_channels-1==1): #1 way
             dilations2=[2,4,8]
         else:
             dilations2=[8,16,32]            
@@ -135,7 +135,7 @@ class resnet9(nn.Module):
         out1=out
         out1=self.resblock4(out1)
         
-        if(mtype=='Net'):
+        if(self.mtype=='Net'):
             out2=out
             out2=self.pool2(out2)
             out2=self.pool3(out2)
