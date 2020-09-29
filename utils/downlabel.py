@@ -12,7 +12,7 @@ def index(arr,x):
 
 def downlabel(labels,K):
     visited=[False]*100
-    count=[0]*100
+    count=[0]*1005
     for x in labels:
         for i in range(x.shape[0]):
             for j in range(x.shape[1]):
