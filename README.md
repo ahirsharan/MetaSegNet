@@ -94,7 +94,7 @@ Hyperparameters and options in `main.py`.
 - `phase` train or test
 - `seed` Manual seed for PyTorch, "0" means using random seed
 - `gpu` GPU id (change!!)
-- `dataset_dir` Directory for the images
+- `dataset_dir` Directory for the images (change!!)
 - `max_epoch` Epoch number for meta-train phase (change!!)
 - `num_batch` The number for different tasks used for meta-train (change!!)
 - `way` Way number, how many classes in a task(Background excluded) (change!!)
