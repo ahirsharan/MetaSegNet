@@ -10,7 +10,7 @@ from utils.misc import Averager, Timer, ensure_path
 from tensorboardX import SummaryWriter
 from dataloader.samplers import CategoriesSampler
 from utils.metrics import eval_metrics
-from utils.losses import CE_DiceLoss
+from utils.losses import CE_DiceLoss,FocalLoss
 from utils.downlabel import downlabel
 from dataloader.dataset_loader import DatasetLoader as Dataset
 from torchvision import transforms
@@ -54,6 +54,7 @@ class MetaTrainer(object):
         # Build meta-transfer learning model
         self.model = MtlLearner(self.args)
         self.CD=CE_DiceLoss()
+        self.FL=FocalLoss()
         
         # Set optimizer 
         self.optimizer = torch.optim.Adam([{'params': filter(lambda p: p.requires_grad, self.model.encoder.parameters())}, \
@@ -177,8 +178,11 @@ class MetaTrainer(object):
                 # Output logits for model
                 Gte = self.model(im_train,Ytr,im_test, Yte)
                 GteT=torch.transpose(Gte,1,2)
+                
                 # Calculate meta-train loss
-                loss = self.CD(GteT,Yte)
+                
+                #loss = self.CD(GteT,Yte)
+                 loss = self.FL(GteT,Yte)
                 
                 self._reset_metrics()
                 # Calculate meta-train accuracy
