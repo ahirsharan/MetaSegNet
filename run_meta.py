@@ -3,9 +3,9 @@ import os
 
 # N shot and K way
 def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
-    max_epoch = 4
+    max_epoch = 40
     step_size = 20
-    K = 2            #Background class not included. Adjust accordingly further.
+    K = 1            #Background class not included. Adjust accordingly further.
     gpu = 0
     
     #dataset='COCO'
@@ -34,4 +34,4 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     os.system(the_command + ' --phase=train')
     os.system(the_command + ' --phase=test')
 
-run_exp(num_batch=2, N=1, Q=2, lr=0.001, update_step=100)
+run_exp(num_batch=1000, N=5, Q=2, lr=0.001, update_step=100)
