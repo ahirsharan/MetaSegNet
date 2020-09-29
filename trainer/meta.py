@@ -182,7 +182,7 @@ class MetaTrainer(object):
                 # Calculate meta-train loss
                 
                 #loss = self.CD(GteT,Yte)
-                 loss = self.FL(GteT,Yte)
+                loss = self.FL(GteT,Yte)
                 
                 self._reset_metrics()
                 # Calculate meta-train accuracy
