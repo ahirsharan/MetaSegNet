@@ -90,15 +90,15 @@ The test predictions and logs(models) will be stored in the same root directory 
 Hyperparameters and options in `main.py`.
 
 - `model_type` The network architecture
-- `dataset` Meta dataset
+- `dataset` Meta dataset (change!!)
 - `phase` train or test
 - `seed` Manual seed for PyTorch, "0" means using random seed
-- `gpu` GPU id
+- `gpu` GPU id (change!!)
 - `dataset_dir` Directory for the images
-- `max_epoch` Epoch number for meta-train phase
-- `num_batch` The number for different tasks used for meta-train
-- `way` Way number, how many classes in a task(Background excluded)
-- `train_query` The number of training samples for each class in a task (shots)
+- `max_epoch` Epoch number for meta-train phase (change!!)
+- `num_batch` The number for different tasks used for meta-train (change!!)
+- `way` Way number, how many classes in a task(Background excluded) (change!!)
+- `train_query` Shots: The number of training samples for each class in a task (change!!)
 - `test_query` The number of test samples for each class in a task
 - `meta_lr` Learning rate for embedding model
 - `base_lr` Learning rate for the inner loop
