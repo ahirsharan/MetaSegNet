@@ -88,6 +88,7 @@ Run meta-train and meta-test phase:
 ```bash
 python run_meta.py
 ```
+The test predictions and logs(models) will be stored in the same root directory under resultsx and logsx where x can be changed in trainer/meta.py
 
 ## Hyperparameters and Options
 Hyperparameters and options in `main.py`.
