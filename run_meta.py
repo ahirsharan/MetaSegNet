@@ -7,6 +7,7 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     step_size = 20
     K = 1            #Background class not included. Adjust accordingly further.
     gpu = 0
+    mtype='Net'
     
     #dataset='COCO'
     #dataset_dir='../Datasets/COCOAug/'
@@ -21,6 +22,7 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     the_command = 'python3 main.py' \
         + ' --dataset=' +str(dataset) \
         + ' --dataset_dir=' +str(dataset_dir) \
+        + ' --mtype=' +str(mtype) \
         + ' --max_epoch=' + str(max_epoch) \
         + ' --num_batch=' + str(num_batch) \
         + ' --train_query=' + str(N) \
