@@ -11,8 +11,8 @@ def index(arr,x):
 #Bring the labels from global labels to (0 to K-1) for meta tasks based on maximum occurence
 
 def downlabel(labels,K):
-    visited=[False]*1005
-    count=[0]*1005
+    visited=[False]*1100
+    count=[0]*1100
     for x in labels:
         for i in range(x.shape[0]):
             for j in range(x.shape[1]):
@@ -36,7 +36,7 @@ def downlabel(labels,K):
     for i in range(K):
         maxv=0
         inx=-1
-        for j in range(100):
+        for j in range(1100):
             if(visited[j]==True and count[j]>=maxv):
                 maxv=count[j]
                 inx=j
