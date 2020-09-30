@@ -46,7 +46,7 @@ The code structure is based on [MTL-template](https://github.com/yaoyao-liu/meta
     |
     ├── COCOAug     
     ├── Pascal5Aug
-    ├── FSS1000   
+    ├── FSS1000Aug   
     |  
 ├── MetaSegNet
     |
