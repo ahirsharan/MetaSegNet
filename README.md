@@ -91,6 +91,7 @@ The tensorboardX log for loss and mIoU would be stored in runs in the MetaSegNet
 Hyperparameters and options in `main.py`.
 
 - `model_type` The network architecture
+- `mtype` The ablation study argument for choosing MetaSegNet, MetaSegNet-NG and MetaSegConv (change!!)
 - `dataset` Meta dataset (change!!)
 - `phase` train or test
 - `seed` Manual seed for PyTorch, "0" means using random seed
