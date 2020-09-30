@@ -57,7 +57,7 @@ class MetaTrainer(object):
         self.FL=FocalLoss()
         
         # Set optimizer 
-        self.optimizer = torch.optim.Adam({'params': filter(lambda p: p.requires_grad, self.model.encoder.parameters())}, lr=self.args.meta_lr)
+        self.optimizer = torch.optim.Adam([{'params': filter(lambda p: p.requires_grad, self.model.encoder.parameters())}], lr=self.args.meta_lr)
         
         # Set learning rate scheduler 
         self.lr_scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)        
