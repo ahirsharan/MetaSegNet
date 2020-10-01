@@ -332,9 +332,10 @@ class MetaTrainer(object):
         
         # Test mIoU
         ave_acc=ave_acc.item()
-        
+        print("=============================================================")
         print('Average Test mIoU: {:.4f}'.format(ave_acc))
         print("Images Saved!")
+        print("=============================================================")
         # Calculate the confidence interval, update the logs
         #print('Val Best Epoch {}, Acc {:.4f}, Test Acc {:.4f}'.format(trlog['max_acc_epoch'], trlog['max_acc']*100.0, ave_acc.item()*100.0))
         
