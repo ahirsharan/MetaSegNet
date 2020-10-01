@@ -3,7 +3,7 @@ import os
 
 # N shot and K way
 def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
-    max_epoch = 2
+    max_epoch = 80
     step_size = 20
     K = 2            #Background class not included. Adjust accordingly further.
     gpu = 0
@@ -38,4 +38,4 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
 
 #N shots should be changed
 #Q can be kept the same ie 2
-run_exp(num_batch=2, N=1, Q=2, lr=0.001, update_step=100)
+run_exp(num_batch=500, N=1, Q=2, lr=0.001, update_step=100)
