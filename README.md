@@ -25,9 +25,9 @@ You may download Anaconda and read the installation instruction on their officia
 Create a new environment and install PyTorch and torchvision on it:
 
 ```bash
-conda create --name segfew python=3.5
-conda activate segfew
-conda install pytorch=0.4.0 
+conda create --name mseg python=3.5
+conda activate mseg
+conda install pytorch=1.5.0 
 conda install torchvision -c pytorch
 ```
 
