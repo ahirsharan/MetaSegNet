@@ -23,11 +23,11 @@ class MetaTrainer(object):
     """The class that contains the code for the meta-train phase and meta-eval phase."""
     def __init__(self, args):
         # Set the folder to save the records and checkpoints
-        save_image_dir='../results7/'
+        save_image_dir='../results1/'
         if not osp.exists(save_image_dir):
             os.mkdir(save_image_dir)        
         
-        log_base_dir = '../logs7/'
+        log_base_dir = '../logs1/'
         if not osp.exists(log_base_dir):
             os.mkdir(log_base_dir)
         meta_base_dir = osp.join(log_base_dir, 'meta')
@@ -180,8 +180,8 @@ class MetaTrainer(object):
                 
                 # Calculate meta-train loss
                 
-                loss = self.CD(GteT,Yte)
-                #loss = self.FL(GteT,Yte)
+                #loss = self.CD(GteT,Yte)
+                loss = self.FL(GteT,Yte)
                 
                 self._reset_metrics()
                 # Calculate meta-train accuracy
@@ -333,7 +333,7 @@ class MetaTrainer(object):
         # Test mIoU
         ave_acc=ave_acc.item()
         
-        print('Average mIoU: {:.4f}'.format(ave_acc))
+        print('Average Test mIoU: {:.4f}'.format(ave_acc))
         print("Images Saved!")
         # Calculate the confidence interval, update the logs
         #print('Val Best Epoch {}, Acc {:.4f}, Test Acc {:.4f}'.format(trlog['max_acc_epoch'], trlog['max_acc']*100.0, ave_acc.item()*100.0))
