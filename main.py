@@ -9,13 +9,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # Basic parameters
     parser.add_argument('--model_type', type=str, default='MetaSegNet', choices=['MetaSegNet']) # The network architecture
-    parser.add_argument('--dataset', type=str, default='PASCAL', choices=['COCO','PASCAL','FSS1000']) # Dataset
+    parser.add_argument('--dataset', type=str, default='PASCAL', choices=['COCO','PASCAL','PASCALv','FSS1000']) # Dataset
     parser.add_argument('--phase', type=str, default='train', choices=['train','test']) # Phase
     parser.add_argument('--seed', type=int, default=0) # Manual seed for PyTorch, "0" means using random seed
     parser.add_argument('--gpu', default='1') # GPU id
     parser.add_argument('--mtype', type=str, default='Net', choices=['Net','Net-NG','Conv']) # Model Type: Net = MetaSegNet; Net-NG = MetaSegNet-NG; Conv = MetaSegConv
     parser.add_argument('--valdata', type=str, default='No', choices=['Yes','No']) # Validation Flag - Mainly for using val set also
-    parser.add_argument('--dataset_dir', type=str, default='../Datasets/Pascal5Aug/', choices=['../Datasets/COCOAug/','../Datasets/Pascal5Aug/','../Datasets/FSS1000Aug/']) # Dataset folder
+    parser.add_argument('--dataset_dir', type=str, default='../Datasets/Pascal5Aug/', choices=['../Datasets/COCOAug/','../Datasets/Pascal5Aug/','../Datasets/FSS1000Aug/','../Datasets/Pascal5ValAug/']) # Dataset folder
 
     # Parameters for meta-train phase    
     parser.add_argument('--max_epoch', type=int, default=40) # Epoch number for meta-train phase
