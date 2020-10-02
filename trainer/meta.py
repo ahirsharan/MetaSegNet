@@ -129,6 +129,7 @@ class MetaTrainer(object):
         
         # Start meta-train
         for epoch in range(1, self.args.max_epoch + 1):
+            print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
             # Update learning rate
             self.lr_scheduler.step()
             # Set the model to train mode
