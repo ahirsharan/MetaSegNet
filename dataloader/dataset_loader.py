@@ -19,7 +19,10 @@ class DatasetLoader(Dataset):
             THE_PATHL = osp.join(args.dataset_dir, 'Ctrain/')
         elif setname=='test':
             THE_PATH = osp.join(args.dataset_dir, 'Cnovel/')
-            THE_PATHL = osp.join(args.dataset_dir, 'Cnovel/')            
+            THE_PATHL = osp.join(args.dataset_dir, 'Cnovel/')
+        elif setname=='val':
+            THE_PATH = osp.join(args.dataset_dir, 'Cval/')
+            THE_PATHL = osp.join(args.dataset_dir, 'Cval/')
         else:
             raise ValueError('Wrong setname.') 
 
