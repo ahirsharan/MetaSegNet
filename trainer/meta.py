@@ -351,7 +351,7 @@ class MetaTrainer(object):
                     print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
                     print('Epoch:{}, Average Val Loss: {:.4f}, Average Val mIoU: {:.4f}'.format(epoch, val_loss_averager, val_iou_averager))                
             
-                # Save log
+            # Save log
             torch.save(trlog, osp.join(self.args.save_path, 'trlog'))
             
         print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
