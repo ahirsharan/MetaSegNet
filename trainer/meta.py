@@ -113,9 +113,15 @@ class MetaTrainer(object):
         trlog['train_loss'] = []
         trlog['train_acc'] = []
         trlog['train_iou'] = []
+        
+        # Set the meta-val log
+        trlog['val_loss'] = []
+        trlog['val_acc'] = []
+        trlog['val_iou'] = []
+
         trlog['max_iou'] = 0.0
         trlog['max_iou_epoch'] = 0
-
+        
         # Set the timer
         timer = Timer()
         # Set global count to zero
@@ -244,14 +250,7 @@ class MetaTrainer(object):
             """The function for the meta-val phase."""
             
             if(self.args.valdata=='Yes'):
-
-                # Set the meta-val log
-                trlog['val_loss'] = []
-                trlog['val_acc'] = []
-                trlog['val_iou'] = []
-
-                # Start meta-val
-                
+                # Start meta-val            
                 # Set the model to val mode
                 self.model.eval()
                 
