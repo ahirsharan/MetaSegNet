@@ -240,8 +240,8 @@ class MetaTrainer(object):
                 print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
                 print('Epoch:{}, Average Loss: {:.4f}, Average mIoU: {:.4f}'.format(epoch, train_loss_averager, train_iou_averager))
 
-        """The function for the meta-val phase."""
-
+            """The function for the meta-val phase."""
+            
             if(self.args.valdata=='Yes'):
 
                 # Set the meta-val log
