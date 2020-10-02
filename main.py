@@ -14,6 +14,7 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, default=0) # Manual seed for PyTorch, "0" means using random seed
     parser.add_argument('--gpu', default='1') # GPU id
     parser.add_argument('--mtype', type=str, default='Net', choices=['Net','Net-NG','Conv']) # Model Type: Net = MetaSegNet; Net-NG = MetaSegNet-NG; Conv = MetaSegConv
+    parser.add_argument('--valdata', type=str, default='No', choices=['Yes','No']) # Validation Flag - Mainly for using val set also
     parser.add_argument('--dataset_dir', type=str, default='../Datasets/Pascal5Aug/', choices=['../Datasets/COCOAug/','../Datasets/Pascal5Aug/','../Datasets/FSS1000Aug/']) # Dataset folder
 
     # Parameters for meta-train phase    
