@@ -227,8 +227,8 @@ class MetaTrainer(object):
                     trlog['max_iou_epoch'] = epoch
                     self.save_model('max_iou')
                     
-                # Save model every 5 epochs
-                if epoch % 5 == 0:
+                # Save model every 2 epochs
+                if epoch % 2 == 0:
                     self.save_model('epoch'+str(epoch))
 
             # Update the logs
@@ -336,8 +336,8 @@ class MetaTrainer(object):
                     trlog['max_iou_epoch'] = epoch
                     self.save_model('max_iou')
                     
-                # Save model every 5 epochs
-                if epoch % 5 == 0:
+                # Save model every 2 epochs
+                if epoch % 2 == 0:
                     self.save_model('epoch'+str(epoch))
                     
                 # Update the logs
