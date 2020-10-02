@@ -92,6 +92,7 @@ Hyperparameters and options in `main.py`.
 
 - `model_type` The network architecture
 - `mtype` The ablation study argument for choosing MetaSegNet, MetaSegNet-NG and MetaSegConv (change!!)
+- `valdata` The ablation study argument for choosing validation set also (change!!)
 - `dataset` Meta dataset (change!!)
 - `phase` train or test
 - `seed` Manual seed for PyTorch, "0" means using random seed
