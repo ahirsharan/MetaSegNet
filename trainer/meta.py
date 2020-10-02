@@ -354,6 +354,7 @@ class MetaTrainer(object):
                 # Save log
             torch.save(trlog, osp.join(self.args.save_path, 'trlog'))
             
+        print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
         writer.close()
 
     def eval(self):
