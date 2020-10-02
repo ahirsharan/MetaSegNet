@@ -242,17 +242,18 @@ class MetaTrainer(object):
 
         """The function for the meta-val phase."""
 
-        if(self.args.valdata=='Yes'):
-            
-            # Set the meta-val log
-            trlog['val_loss'] = []
-            trlog['val_acc'] = []
-            trlog['val_iou'] = []
+            if(self.args.valdata=='Yes'):
 
-            # Start meta-val
-            for epoch in range(1, self.args.max_epoch + 1):
+                # Set the meta-val log
+                trlog['val_loss'] = []
+                trlog['val_acc'] = []
+                trlog['val_iou'] = []
+
+                # Start meta-val
+                
                 # Set the model to val mode
                 self.model.eval()
+                
                 # Set averager classes to record training losses and accuracies
                 val_loss_averager = Averager()
                 val_acc_averager = Averager()
@@ -335,11 +336,11 @@ class MetaTrainer(object):
                     trlog['max_iou'] = val_iou_averager
                     trlog['max_iou_epoch'] = epoch
                     self.save_model('max_iou')
-                    
+
                 # Save model every 2 epochs
                 if epoch % 2 == 0:
                     self.save_model('epoch'+str(epoch))
-                    
+
                 # Update the logs
                 trlog['val_loss'].append(val_loss_averager)
                 trlog['val_acc'].append(val_acc_averager)
@@ -349,7 +350,7 @@ class MetaTrainer(object):
                     print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
                     print('Epoch:{}, Average Val Loss: {:.4f}, Average Val mIoU: {:.4f}'.format(epoch, val_loss_averager, val_iou_averager))                
             
-            # Save log
+                # Save log
             torch.save(trlog, osp.join(self.args.save_path, 'trlog'))
             
         writer.close()
