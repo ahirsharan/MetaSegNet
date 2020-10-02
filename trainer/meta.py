@@ -50,6 +50,12 @@ class MetaTrainer(object):
         self.trainset = Dataset('train', self.args)
         self.train_sampler = CategoriesSampler(self.trainset.labeln, self.args.num_batch, self.args.way+1, self.args.train_query, self.args.test_query)
         self.train_loader = DataLoader(dataset=self.trainset, batch_sampler=self.train_sampler, num_workers=8, pin_memory=True)
+
+        # Load meta-val set
+        if(self.args.valdata=='Yes'):
+            self.valset = Dataset('val', self.args)
+            self.val_sampler = CategoriesSampler(self.valset.labeln, self.args.num_batch, self.args.way+1, self.args.train_query, self.args.test_query)
+            self.val_loader = DataLoader(dataset=self.valset, batch_sampler=self.val_sampler, num_workers=8, pin_memory=True)
         
         # Build meta-transfer learning model
         self.model = MtlLearner(self.args)
@@ -213,28 +219,138 @@ class MetaTrainer(object):
             writer.add_scalar('data/train_acc (Meta)', float(train_acc_averager)*100.0, epoch)  
             writer.add_scalar('data/train_iou (Meta)', float(train_iou_averager), epoch)
                        
-            # Update best saved model
-            if train_iou_averager > trlog['max_iou']:
-                print("New Best!")
-                trlog['max_iou'] = train_iou_averager
-                trlog['max_iou_epoch'] = epoch
-                self.save_model('max_iou')
-                
-            # Save model every 5 epochs
-            if epoch % 5 == 0:
-                self.save_model('epoch'+str(epoch))
+            # Update best saved model if validation set is not present and save it
+            if(self.args.valdata=='No'):
+                if train_iou_averager > trlog['max_iou']:
+                    print("New Best!")
+                    trlog['max_iou'] = train_iou_averager
+                    trlog['max_iou_epoch'] = epoch
+                    self.save_model('max_iou')
+                    
+                # Save model every 5 epochs
+                if epoch % 5 == 0:
+                    self.save_model('epoch'+str(epoch))
 
             # Update the logs
             trlog['train_loss'].append(train_loss_averager)
             trlog['train_acc'].append(train_acc_averager)
             trlog['train_iou'].append(train_iou_averager)
             
-            # Save log
-            torch.save(trlog, osp.join(self.args.save_path, 'trlog'))
-
             if epoch % 1 == 0:
                 print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
                 print('Epoch:{}, Average Loss: {:.4f}, Average mIoU: {:.4f}'.format(epoch, train_loss_averager, train_iou_averager))
+
+        """The function for the meta-val phase."""
+
+        if(self.args.valdata=='Yes'):
+            
+            # Set the meta-val log
+            trlog['val_loss'] = []
+            trlog['val_acc'] = []
+            trlog['val_iou'] = []
+
+            # Start meta-val
+            for epoch in range(1, self.args.max_epoch + 1):
+                # Set the model to val mode
+                self.model.eval()
+                # Set averager classes to record training losses and accuracies
+                val_loss_averager = Averager()
+                val_acc_averager = Averager()
+                val_iou_averager = Averager()
+
+                # Using tqdm to read samples from train loader
+                tqdm_gen = tqdm.tqdm(self.val_loader)
+
+                for i, batch in enumerate(tqdm_gen, 1):
+                    # Update global count number 
+                    global_count = global_count + 1
+                    if torch.cuda.is_available():
+                        data, labels,_ = [_.cuda() for _ in batch]
+                    else:
+                        data = batch[0]
+                        labels = batch[1]
+
+                    #print(data.shape)
+                    #print(labels.shape)
+                    p = K*N
+                    im_train, im_test = data[:p], data[p:]
+
+                    #Adjusting labels for each meta task
+                    labels=downlabel(labels,K) 
+                    out_train, out_test = labels[:p],labels[p:]
+
+                    '''
+                    print(im_train.shape)
+                    print(im_test.shape)
+                    print(out_train.shape)
+                    print(out_test.shape)
+                    '''
+                    if(torch.cuda.is_available()):
+                        im_train=im_train.cuda()
+                        im_test=im_test.cuda()
+                        out_train=out_train.cuda()
+                        out_test=out_test.cuda()
+
+                    #Reshaping val set ouput
+                    Ytr = out_train.reshape(-1)
+                    Ytr = onehot(Ytr,K) #One hot encoding for loss
+
+                    Yte = out_test.reshape(out_test.shape[0],-1)
+                    if(torch.cuda.is_available()):
+                        Ytr=Ytr.cuda()
+                        Yte=Yte.cuda()
+
+                    # Output logits for model
+                    Gte = self.model(im_train,Ytr,im_test, Yte)
+                    GteT=torch.transpose(Gte,1,2)
+
+                    self._reset_metrics()
+                    # Calculate meta-train accuracy
+                    seg_metrics = eval_metrics(GteT, Yte, K)
+                    self._update_seg_metrics(*seg_metrics)
+                    pixAcc, mIoU, _ = self._get_seg_metrics(K).values()
+
+                    # Print loss and accuracy for this step 
+                    tqdm_gen.set_description('Epoch {}, Val Loss={:.4f} Val Acc={:.4f} Val IoU={:.4f}'.format(epoch, loss.item(), pixAcc*100.0,mIoU))
+
+                    # Add loss and accuracy for the averagers
+                    # Calculate the running averages
+                    val_loss_averager.add(loss.item())
+                    val_acc_averager.add(pixAcc)
+                    val_iou_averager.add(mIoU)
+
+                # Update the averagers
+                val_loss_averager = val_loss_averager.item()
+                val_acc_averager = val_acc_averager.item()
+                val_iou_averager = val_iou_averager.item()
+
+                #Adding to Tensorboard
+                writer.add_scalar('data/val_loss (Meta)', float(val_loss_averager), epoch)
+                writer.add_scalar('data/val_acc (Meta)', float(val_acc_averager)*100.0, epoch)  
+                writer.add_scalar('data/val_iou (Meta)', float(val_iou_averager), epoch)
+
+                # Update best saved model
+                if val_iou_averager > trlog['max_iou']:
+                    print("New Best (Validation)")
+                    trlog['max_iou'] = val_iou_averager
+                    trlog['max_iou_epoch'] = epoch
+                    self.save_model('max_iou')
+                    
+                # Save model every 5 epochs
+                if epoch % 5 == 0:
+                    self.save_model('epoch'+str(epoch))
+                    
+                # Update the logs
+                trlog['val_loss'].append(val_loss_averager)
+                trlog['val_acc'].append(val_acc_averager)
+                trlog['val_iou'].append(val_iou_averager)
+
+                if epoch % 1 == 0:
+                    print('Running Time: {}, Estimated Time: {}'.format(timer.measure(), timer.measure(epoch / self.args.max_epoch)))
+                    print('Epoch:{}, Average Val Loss: {:.4f}, Average Val mIoU: {:.4f}'.format(epoch, val_loss_averager, val_iou_averager))                
+            
+            # Save log
+            torch.save(trlog, osp.join(self.args.save_path, 'trlog'))
             
         writer.close()
 
