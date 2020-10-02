@@ -8,7 +8,7 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     K = 2            #Background class not included. Adjust accordingly further.
     gpu = 0
     mtype = 'Net'
-    valdata = False
+    valdata = 'No'
     
     dataset='COCO'
     dataset_dir='../Datasets/COCOAug/'
