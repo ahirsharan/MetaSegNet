@@ -17,7 +17,7 @@
 ## Requirements
 PyTorch and Torchvision needs to be installed before running the scripts, together with `PIL` for data-preprocessing and `tqdm` for showing the training progress.
 
-To run this repository, kindly install python 3.5 and PyTorch 1.5.0 with Anaconda.
+To run this repository, kindly install python 3.7 and PyTorch 1.5.0 with Anaconda.
 
 You may download Anaconda and read the installation instruction on their official website:
 <https://www.anaconda.com/download/>
@@ -25,7 +25,7 @@ You may download Anaconda and read the installation instruction on their officia
 Create a new environment and install PyTorch and torchvision on it:
 
 ```bash
-conda create --name mseg python=3.5
+conda create --name mseg python=3.7
 conda activate mseg
 conda install pytorch=1.5.0 
 conda install torchvision -c pytorch
