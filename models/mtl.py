@@ -3,7 +3,7 @@ import  torch
 import torch.nn as nn
 import torch.nn.functional as F
 from models.metasegnet import resnet9
-from utils.losses import CE_DiceLoss,FocalLoss
+from utils.losses import CE_DiceLoss,FocalLoss,LovaszSoftmax
 from utils.onehot import onehot
 
 class BaseLearner(nn.Module):
@@ -85,6 +85,7 @@ class MtlLearner(nn.Module):
         self.encoder = resnet9(3,num_classes,self.mtype)  
         self.CD=CE_DiceLoss()
         self.FL=FocalLoss()
+        self.LS=LovaszSoftmax()
         
     def forward(self, im_train, Ytr, im_test, Yte):
         
@@ -111,7 +112,8 @@ class MtlLearner(nn.Module):
         #print(GteT.shape) 
         
         #loss =  self.CD(GteT,Yte)
-        loss = self.FL(GteT,Yte)   
+        #loss = self.FL(GteT,Yte) 
+        loss = self.LS(GteT,Yte) 
         '''
         print(self.base_learner.parameters())
         for par in self.base_learner.parameters():
@@ -128,7 +130,8 @@ class MtlLearner(nn.Module):
             GteT=torch.transpose(Gte,1,2)
             
             #loss =  self.CD(GteT,Yte)
-            loss = self.FL(GteT,Yte)
+            #loss = self.FL(GteT,Yte)
+            loss = self.LS(GteT,Yte) 
             
             grad = torch.autograd.grad(loss, fast_weights)
             fast_weights = list(map(lambda p: p[1] - self.update_lr * p[0], zip(grad, fast_weights)))
