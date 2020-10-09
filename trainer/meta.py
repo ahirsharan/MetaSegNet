@@ -144,10 +144,7 @@ class MetaTrainer(object):
             print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
             # Update learning rate
             self.lr_scheduler.step()
-            
-            #if(epoch<46):
-            #    continue
-            
+                 
             # Set the model to train mode
             self.model.train()
             # Set averager classes to record training losses and accuracies
