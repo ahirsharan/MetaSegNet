@@ -45,7 +45,7 @@ class MetaTrainer(object):
 
         # Set args to be shareable in the class
         self.args = args
-
+       
         # Load meta-train set
         self.trainset = Dataset('train', self.args)
         self.train_sampler = CategoriesSampler(self.trainset.labeln, self.args.num_batch, self.args.way+1, self.args.train_query, self.args.test_query)
@@ -75,27 +75,17 @@ class MetaTrainer(object):
         self.lr_scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)        
         
         # load pretrained model
-        self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
-        self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_o.pth'))['params_o'])
-        self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_s.pth'))['params_s'])
+        #self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
+        #self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_o.pth'))['params_o'])
+        #self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_s.pth'))['params_s'])
         
         self.model_dict = self.model.state_dict()
         self.optimizer_dict = self.optimizer.state_dict()
         self.lr_scheduler_dict = self.lr_scheduler.state_dict()
-
-        print("Optimizer's state_dict:")
-        for var_name in self.optimizer.state_dict():
-            print(var_name, "\t", self.optimizer.state_dict()[var_name])        
-        
-        print("LR Scheduler's state_dict:")
-        for var_name in self.lr_scheduler.state_dict():
-            print(var_name, "\t", self.lr_scheduler.state_dict()[var_name]) 
-        
+    
         pytorch_total_params = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
         print("Total Trainable Parameters in the Model: " + str(pytorch_total_params))
                                                               
-
-
     def _reset_metrics(self):
         self.total_inter, self.total_union = 0, 0
         self.total_correct, self.total_label = 0, 0
@@ -130,7 +120,7 @@ class MetaTrainer(object):
         """The function for the meta-train phase."""
 
         # Set the meta-train log
-        initial_epoch=4
+        initial_epoch=1
         
         trlog = {}
         trlog['args'] = vars(self.args)
