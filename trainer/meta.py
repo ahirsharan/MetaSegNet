@@ -71,10 +71,12 @@ class MetaTrainer(object):
         
         # load pretrained model
         #self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
-        #self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['paramso'])
+        #self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params_o'])
+        #self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params_s'])
         
         self.model_dict = self.model.state_dict()
         self.optimizer_dict = self.optimizer.state_dict()
+        self.lr_scheduler_dict = self.lr_scheduler.state_dict()
         
         # Set model to GPU
         if torch.cuda.is_available():
@@ -108,12 +110,15 @@ class MetaTrainer(object):
           name: the name for saved checkpoint
         """  
         torch.save(dict(params=self.model.state_dict()), osp.join(self.args.save_path, name + '.pth'))
-        torch.save(dict(paramso=self.optimizer.state_dict()), osp.join(self.args.save_path, name + '.pth'))
+        torch.save(dict(params_o=self.optimizer.state_dict()), osp.join(self.args.save_path, name + '.pth'))
+        torch.save(dict(params_s=self.lr_scheduler.state_dict()), osp.join(self.args.save_path, name + '.pth'))
 
     def train(self):
         """The function for the meta-train phase."""
 
         # Set the meta-train log
+        initial_epoch=1
+        
         trlog = {}
         trlog['args'] = vars(self.args)
         trlog['train_loss'] = []
@@ -140,8 +145,9 @@ class MetaTrainer(object):
         Q=self.args.test_query
         
         # Start meta-train
-        for epoch in range(1, self.args.max_epoch + 1):
+        for epoch in range(intial_epoch, self.args.max_epoch + 1):
             print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
+            
             # Update learning rate
             self.lr_scheduler.step()
                  
