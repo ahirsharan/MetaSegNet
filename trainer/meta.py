@@ -63,6 +63,11 @@ class MetaTrainer(object):
         self.FL=FocalLoss()
         self.LS=LovaszSoftmax()
         
+        # Set model to GPU
+        if torch.cuda.is_available():
+            torch.backends.cudnn.benchmark = True
+            self.model = self.model.cuda()        
+        
         # Set optimizer 
         self.optimizer = torch.optim.Adam([{'params': filter(lambda p: p.requires_grad, self.model.encoder.parameters())}], lr=self.args.meta_lr)
         
@@ -89,10 +94,7 @@ class MetaTrainer(object):
         pytorch_total_params = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
         print("Total Trainable Parameters in the Model: " + str(pytorch_total_params))
                                                               
-        # Set model to GPU
-        if torch.cuda.is_available():
-            torch.backends.cudnn.benchmark = True
-            self.model = self.model.cuda()
+
 
     def _reset_metrics(self):
         self.total_inter, self.total_union = 0, 0
