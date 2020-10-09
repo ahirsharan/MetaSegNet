@@ -70,9 +70,9 @@ class MetaTrainer(object):
         self.lr_scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)        
         
         # load pretrained model
-        #self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
-        #self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_o.pth'))['params_o'])
-        #self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_s.pth'))['params_s'])
+        self.model.load_state_dict(torch.load(osp.join(self.args.save_path, '2' + '.pth'))['params'])
+        self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, '2' + '_o.pth'))['params_o'])
+        self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, '2' + '_s.pth'))['params_s'])
         
         self.model_dict = self.model.state_dict()
         self.optimizer_dict = self.optimizer.state_dict()
@@ -128,7 +128,7 @@ class MetaTrainer(object):
         """The function for the meta-train phase."""
 
         # Set the meta-train log
-        initial_epoch=1
+        initial_epoch=3
         
         trlog = {}
         trlog['args'] = vars(self.args)
