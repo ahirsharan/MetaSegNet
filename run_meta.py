@@ -6,18 +6,18 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     max_epoch = 4
     step_size = 1
     K = 2            #Background class not included. Adjust accordingly further.
-    gpu = 1
+    gpu = 0
     mtype = 'Net'
     valdata = 'No'
     
-    dataset='COCO'
-    dataset_dir='../Datasets/COCOAug/'
+    #dataset='COCO'
+    #dataset_dir='../Datasets/COCOAug/'
     
     #dataset='FSS1000'
     #dataset_dir='../Datasets/FSS1000Aug/'
     
-    #dataset='PASCAL'
-    #dataset_dir='../Datasets/Pascal5Aug/'
+    dataset='PASCAL'
+    dataset_dir='../Datasets/Pascal5Aug/'
     
     #dataset='PASCALv'
     #dataset_dir='../Datasets/Pascal5ValAug/'   
