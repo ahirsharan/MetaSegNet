@@ -75,6 +75,8 @@ class MetaTrainer(object):
         self.lr_scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)        
         
         # load pretrained model
+        # Path should nbe changed accordingly
+        
         #self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
         #self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_o.pth'))['params_o'])
         #self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_s.pth'))['params_s'])
@@ -82,7 +84,8 @@ class MetaTrainer(object):
         self.model_dict = self.model.state_dict()
         self.optimizer_dict = self.optimizer.state_dict()
         self.lr_scheduler_dict = self.lr_scheduler.state_dict()
-    
+        
+        #Total Model Parameters
         pytorch_total_params = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
         print("Total Trainable Parameters in the Model: " + str(pytorch_total_params))
                                                               
@@ -120,6 +123,7 @@ class MetaTrainer(object):
         """The function for the meta-train phase."""
 
         # Set the meta-train log
+        #Change when resuming training
         initial_epoch=1
         
         trlog = {}
