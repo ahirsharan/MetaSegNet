@@ -6,7 +6,7 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
     max_epoch = 80
     step_size = 25
     K = 2            #Background class not included. Adjust accordingly further.
-    gpu = 0
+    gpu = 1
     mtype = 'Net'
     valdata = 'No'
     
