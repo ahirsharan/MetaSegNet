@@ -136,10 +136,14 @@ class MetaTrainer(object):
         Q=self.args.test_query
         
         # Start meta-train
-        for epoch in range(46, self.args.max_epoch + 1):
+        for epoch in range(1, self.args.max_epoch + 1):
             print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
             # Update learning rate
             self.lr_scheduler.step()
+            
+            if(epoch<46):
+                continue
+            
             # Set the model to train mode
             self.model.train()
             # Set averager classes to record training losses and accuracies
