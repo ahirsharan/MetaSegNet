@@ -145,7 +145,7 @@ class MetaTrainer(object):
         Q=self.args.test_query
         
         # Start meta-train
-        for epoch in range(intial_epoch, self.args.max_epoch + 1):
+        for epoch in range(initial_epoch, self.args.max_epoch + 1):
             print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
             
             # Update learning rate
