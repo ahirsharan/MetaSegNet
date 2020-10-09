@@ -70,6 +70,7 @@ class MetaTrainer(object):
         self.lr_scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=self.args.step_size, gamma=self.args.gamma)        
         
         # load pretrained model
+        self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
         self.model_dict = self.model.state_dict()
 
         # Set model to GPU
@@ -120,8 +121,8 @@ class MetaTrainer(object):
         trlog['val_acc'] = []
         trlog['val_iou'] = []
 
-        trlog['max_iou'] = 0.0
-        trlog['max_iou_epoch'] = 0
+        trlog['max_iou'] = 0.2866
+        trlog['max_iou_epoch'] = 45
         
         # Set the timer
         timer = Timer()
@@ -135,7 +136,7 @@ class MetaTrainer(object):
         Q=self.args.test_query
         
         # Start meta-train
-        for epoch in range(1, self.args.max_epoch + 1):
+        for epoch in range(46, self.args.max_epoch + 1):
             print('----------------------------------------------------------------------------------------------------------------------------------------------------------')
             # Update learning rate
             self.lr_scheduler.step()
