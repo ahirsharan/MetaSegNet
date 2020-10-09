@@ -79,11 +79,11 @@ class MetaTrainer(object):
         self.lr_scheduler_dict = self.lr_scheduler.state_dict()
 
         print("Optimizer's state_dict:")
-        for var_name in optimizer.state_dict():
+        for var_name in self.optimizer.state_dict():
             print(var_name, "\t", self.optimizer.state_dict()[var_name])        
         
         print("LR Scheduler's state_dict:")
-        for var_name in lr_scheduler.state_dict():
+        for var_name in self.lr_scheduler.state_dict():
             print(var_name, "\t", self.lr_scheduler.state_dict()[var_name]) 
         
         pytorch_total_params = sum(p.torch.numel() for p in self.model.parameters() if p.requires_grad)
