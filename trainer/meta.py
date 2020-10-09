@@ -121,8 +121,8 @@ class MetaTrainer(object):
         trlog['val_acc'] = []
         trlog['val_iou'] = []
 
-        trlog['max_iou'] = 0.2866
-        trlog['max_iou_epoch'] = 45
+        trlog['max_iou'] = 0.0
+        trlog['max_iou_epoch'] = 0
         
         # Set the timer
         timer = Timer()
