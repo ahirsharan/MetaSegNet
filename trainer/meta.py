@@ -71,13 +71,24 @@ class MetaTrainer(object):
         
         # load pretrained model
         self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
-        self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params_o'])
-        self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params_s'])
+        self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_o.pth'))['params_o'])
+        self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_s.pth'))['params_s'])
         
         self.model_dict = self.model.state_dict()
         self.optimizer_dict = self.optimizer.state_dict()
         self.lr_scheduler_dict = self.lr_scheduler.state_dict()
+
+        print("Optimizer's state_dict:")
+        for var_name in optimizer.state_dict():
+            print(var_name, "\t", optimizer.state_dict()[var_name])        
         
+        print("LR Scheduler's state_dict:")
+        for var_name in lr_scheduler.state_dict():
+            print(var_name, "\t", lr_scheduler.state_dict()[var_name]) 
+        
+        pytorch_total_params = sum(p.torch.numel() for p in self.model.parameters() if p.requires_grad)
+        print("Total Trainable Parameters in the Model: " + str(pytorch_total_params))
+                                                              
         # Set model to GPU
         if torch.cuda.is_available():
             torch.backends.cudnn.benchmark = True
@@ -110,8 +121,8 @@ class MetaTrainer(object):
           name: the name for saved checkpoint
         """  
         torch.save(dict(params=self.model.state_dict()), osp.join(self.args.save_path, name + '.pth'))
-        torch.save(dict(params_o=self.optimizer.state_dict()), osp.join(self.args.save_path, name + '.pth'))
-        torch.save(dict(params_s=self.lr_scheduler.state_dict()), osp.join(self.args.save_path, name + '.pth'))
+        torch.save(dict(params_o=self.optimizer.state_dict()), osp.join(self.args.save_path, name + '_o.pth'))
+        torch.save(dict(params_s=self.lr_scheduler.state_dict()), osp.join(self.args.save_path, name + '_s.pth'))
 
     def train(self):
         """The function for the meta-train phase."""
