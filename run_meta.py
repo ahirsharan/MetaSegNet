@@ -3,21 +3,21 @@ import os
 
 # N shot and K way
 def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
-    max_epoch = 4
-    step_size = 1
+    max_epoch = 80
+    step_size = 25
     K = 2            #Background class not included. Adjust accordingly further.
     gpu = 0
     mtype = 'Net'
     valdata = 'No'
     
-    #dataset='COCO'
-    #dataset_dir='../Datasets/COCOAug/'
+    dataset='COCO'
+    dataset_dir='../Datasets/COCOAug/'
     
     #dataset='FSS1000'
     #dataset_dir='../Datasets/FSS1000Aug/'
     
-    dataset='PASCAL'
-    dataset_dir='../Datasets/Pascal5Aug/'
+    #dataset='PASCAL'
+    #dataset_dir='../Datasets/Pascal5Aug/'
     
     #dataset='PASCALv'
     #dataset_dir='../Datasets/Pascal5ValAug/'   
@@ -43,4 +43,4 @@ def run_exp(num_batch=50, N=1, Q=1, lr=0.001, update_step=20):
 
 #N shots should be changed
 #Q can be kept the same ie 2
-run_exp(num_batch=2, N=1, Q=2, lr=0.001, update_step=100)
+run_exp(num_batch=500, N=1, Q=2, lr=0.0005, update_step=100)
