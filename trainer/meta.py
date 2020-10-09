@@ -86,7 +86,7 @@ class MetaTrainer(object):
         for var_name in self.lr_scheduler.state_dict():
             print(var_name, "\t", self.lr_scheduler.state_dict()[var_name]) 
         
-        pytorch_total_params = sum(p.torch.numel() for p in self.model.parameters() if p.requires_grad)
+        pytorch_total_params = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
         print("Total Trainable Parameters in the Model: " + str(pytorch_total_params))
                                                               
         # Set model to GPU
