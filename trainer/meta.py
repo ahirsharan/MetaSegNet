@@ -128,7 +128,7 @@ class MetaTrainer(object):
         """The function for the meta-train phase."""
 
         # Set the meta-train log
-        initial_epoch=3
+        initial_epoch=1
         
         trlog = {}
         trlog['args'] = vars(self.args)
