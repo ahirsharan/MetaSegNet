@@ -71,8 +71,11 @@ class MetaTrainer(object):
         
         # load pretrained model
         #self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
+        #self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['paramso'])
+        
         self.model_dict = self.model.state_dict()
-
+        self.optimizer_dict = self.optimizer.state_dict()
+        
         # Set model to GPU
         if torch.cuda.is_available():
             torch.backends.cudnn.benchmark = True
@@ -104,7 +107,8 @@ class MetaTrainer(object):
         Args:
           name: the name for saved checkpoint
         """  
-        torch.save(dict(params=self.model.state_dict()), osp.join(self.args.save_path, name + '.pth'))           
+        torch.save(dict(params=self.model.state_dict()), osp.join(self.args.save_path, name + '.pth'))
+        torch.save(dict(paramso=self.optimizer.state_dict()), osp.join(self.args.save_path, name + '.pth'))
 
     def train(self):
         """The function for the meta-train phase."""
