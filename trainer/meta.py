@@ -77,9 +77,9 @@ class MetaTrainer(object):
         # load pretrained model
         # Path should nbe changed accordingly
         
-        #self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '.pth'))['params'])
-        #self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_o.pth'))['params_o'])
-        #self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'max_iou' + '_s.pth'))['params_s'])
+        self.model.load_state_dict(torch.load(osp.join(self.args.save_path, 'epoch8' + '.pth'))['params'])
+        self.optimizer.load_state_dict(torch.load(osp.join(self.args.save_path, 'epoch8' + '_o.pth'))['params_o'])
+        self.lr_scheduler.load_state_dict(torch.load(osp.join(self.args.save_path, 'epoch8' + '_s.pth'))['params_s'])
         
         self.model_dict = self.model.state_dict()
         self.optimizer_dict = self.optimizer.state_dict()
@@ -124,7 +124,7 @@ class MetaTrainer(object):
 
         # Set the meta-train log
         #Change when resuming training
-        initial_epoch=1
+        initial_epoch=9
         
         trlog = {}
         trlog['args'] = vars(self.args)
@@ -137,8 +137,8 @@ class MetaTrainer(object):
         trlog['val_acc'] = []
         trlog['val_iou'] = []
 
-        trlog['max_iou'] = 0.0
-        trlog['max_iou_epoch'] = 0
+        trlog['max_iou'] = 0.2856
+        trlog['max_iou_epoch'] = 4
         
         # Set the timer
         timer = Timer()
