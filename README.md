@@ -1,5 +1,7 @@
 
-## Differentiable Meta-learning Model for Few-shot Semantic Segmentation (MetaSegNet) [In Development]
+## Note: In Development
+## Differentiable Meta-learning Model for Few-shot Semantic Segmentation (MetaSegNet) 
+
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![PyTorch](https://img.shields.io/badge/pytorch-1.5.0-%237732a8)](https://github.com/ahirsharan/MetaSegNet.git)
