@@ -93,17 +93,17 @@ The tensorboardX log for loss and mIoU would be stored in runs in the MetaSegNet
 Hyperparameters and options in `main.py`.
 
 - `model_type` The network architecture
-- `mtype` The ablation study argument for choosing MetaSegNet, MetaSegNet-NG and MetaSegConv (change!!)
-- `valdata` The ablation study argument for choosing validation set also (change!!)
-- `dataset` Meta dataset (change!!)
+- `mtype` The ablation study argument for choosing MetaSegNet, MetaSegNet-NG and MetaSegConv 
+- `valdata` The ablation study argument for choosing validation set also
+- `dataset` Meta dataset 
 - `phase` train or test
 - `seed` Manual seed for PyTorch, "0" means using random seed
-- `gpu` GPU id (change!!)
-- `dataset_dir` Directory for the images (change!!)
-- `max_epoch` Epoch number for meta-train phase (change!!)
-- `num_batch` The number for different tasks used for meta-train (change!!)
-- `way` Way number, how many classes in a task(Background excluded) (change!!)
-- `train_query` Shots: The number of training samples for each class in a task (change!!)
+- `gpu` GPU id 
+- `dataset_dir` Directory for the images
+- `max_epoch` Epoch number for meta-train phase
+- `num_batch` The number for different tasks used for meta-train
+- `way` Way number, how many classes in a task(Background excluded)
+- `train_query` Shots: The number of training samples for each class in a task
 - `test_query` The number of test samples for each class in a task
 - `meta_lr` Learning rate for embedding model
 - `base_lr` Learning rate for the inner loop
